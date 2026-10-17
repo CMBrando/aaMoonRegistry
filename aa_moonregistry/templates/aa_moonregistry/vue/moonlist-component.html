@@ -1,0 +1,181 @@
+<script id="moon-component" type="text/x-template">
+    <div>
+        <div v-if="show_modal" @keydown.esc="closeModal" tabindex="-1" v-cloak>
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog" style="width: 900px">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" v-on:click="closeModal">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                    <div class="modal-title">Add Moon Scan</div>
+                                </div>
+                                <div class="modal-body">
+                                    <moonscan-component></moonscan-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
+        <div class="structure-header">
+            <div style="float:left">
+                <input type="button" value="Add Moon Scan" v-on:click="addScan"  />                                    
+            </div>
+            <div style="clear:both"></div>        
+        </div>
+        <div class="structure-search">
+            <div>
+                <generic-picker searchUrl="SearchUniverse" :is-async="true" :min-chars="2" placeholder="System, Constellation, Region..." :clear-on-selection="true" v-on:item-selected="universeSelected"></generic-picker>
+            </div>
+            <div>
+                <generic-picker searchUrl="SearchMoonOre" :is-async="true" :min-chars="1" placeholder="Moon Ore..." :clear-on-selection="true" v-on:item-selected="oreSelected"></generic-picker>
+            </div>
+            <div>
+                <generic-picker searchUrl="SearchSovOwner" :is-async="true" :min-chars="2" placeholder="Sov. Owner..." :clear-on-selection="true" v-on:item-selected="sovOwnerSelected"></generic-picker>
+            </div>
+            <div>
+                <select v-model="raritySelection" v-on:change="raritySelected">
+                    <option value="">Rarity</option>
+                    <option v-for="rarity in rarityOptions" v-bind:key="rarity" v-bind:value="rarity">R[[ rarity ]]</option>
+                </select>
+            </div>
+            <div class="structure-yield-control">
+                <input id="moon-efficiency" v-model="efficiency" v-on:change="efficiencyChanged" v-on:keyup.enter="efficiencyChanged" type="text" inputmode="decimal" v-bind:aria-invalid="efficiencyError" />
+                <label for="moon-efficiency">Reprocessing Yield</label>
+                <span v-if="efficiencyError" class="structure-yield-error" role="alert">Enter a value from 0 to 1.</span>
+            </div>
+        </div>
+        <div v-if="selUniverse.length || selOres.length || selRarity.length || selSovOwners.length" class="structure-active-filters">
+            <div v-if="selUniverse.length" class="structure-filter-chip-group">
+                <div class="registry-input-group">
+                    <div v-for="item in selUniverse" v-bind:key="item.id" class="registry-input">
+                        <i class="fa fa-close" v-on:click="removeUniverseInput(item.id)"></i>
+                        <span>[[ item.name ]]</span>
+                    </div>
+                </div>
+            </div>
+            <div v-if="selUniverse.length && selOres.length" class="structure-filter-and">AND</div>
+            <div v-if="selOres.length" class="structure-filter-chip-group">
+                <div class="registry-input-group">
+                    <div v-for="ore in selOres" v-bind:key="ore.id" class="registry-input">
+                        <i class="fa fa-close" v-on:click="removeOreInput(ore.id)"></i>
+                        <span>[[ ore.name ]]</span>
+                    </div>
+                </div>
+            </div>
+            <div v-if="(selUniverse.length || selOres.length) && selRarity.length" class="structure-filter-and">AND</div>
+            <div v-if="selRarity.length" class="structure-filter-chip-group">
+                <div class="registry-input-group">
+                    <div v-for="rarity in selRarity" v-bind:key="rarity" class="registry-input">
+                        <i class="fa fa-close" v-on:click="removeRarityInput(rarity)"></i>
+                        <span>R[[ rarity ]]</span>
+                    </div>
+                </div>
+            </div>
+            <div v-if="(selUniverse.length || selOres.length || selRarity.length) && selSovOwners.length" class="structure-filter-and">AND</div>
+            <div v-if="selSovOwners.length" class="structure-filter-chip-group">
+                <div class="registry-input-group">
+                    <div v-for="owner in selSovOwners" v-bind:key="owner.id" class="registry-input">
+                        <i class="fa fa-close" v-on:click="removeSovOwnerInput(owner.id)"></i>
+                        <span v-bind:title="owner.fullName">[[ owner.name ]]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="structure-grid">
+            <div class="structure-sort">
+                <div style="width:30px">
+                    &nbsp;
+                </div>
+                <div style="width:250px">
+                    <span v-on:click="toggleSort('moon_name')" v-bind:class="{ focused: isSortProp('moon_name') }">
+                        Moon Name
+                        <i class="fa fa-sort-up" v-if="showSortIcon('moon_name', 'asc')"></i>
+                        <i class="fa fa-sort-down" v-if="showSortIcon('moon_name', 'desc')"></i>
+                    </span>
+                </div>
+                <div style="width:200px">
+                    <span v-on:click="toggleSort('owner')" v-bind:class="{ focused: isSortProp('owner') }" title="Alliance (Corporation)">
+                        Sov. Owner
+                        <i class="fa fa-sort-up" v-if="showSortIcon('owner', 'asc')"></i>
+                        <i class="fa fa-sort-down" v-if="showSortIcon('owner', 'desc')"></i>
+                    </span>
+                </div>                
+                <div style="width:150px">
+                    <span v-on:click="toggleSort('rarity')" v-bind:class="{ focused: isSortProp('rarity') }">
+                        Rarity
+                        <i class="fa fa-sort-up" v-if="showSortIcon('rarity', 'asc')"></i>
+                        <i class="fa fa-sort-down" v-if="showSortIcon('rarity', 'desc')"></i>
+                    </span>
+                </div>                
+                <div style="width: 250px">
+                    <span v-on:click="toggleSort('thirty_day_volume')" v-bind:class="{ focused: isSortProp('thirty_day_volume') }">
+                        30 Day Volume
+                        <i class="fa fa-sort-up" v-if="showSortIcon('thirty_day_volume', 'asc')"></i>
+                        <i class="fa fa-sort-down" v-if="showSortIcon('thirty_day_volume', 'desc')"></i>
+                    </span>
+                </div>
+                <div style="width: 250px">
+                    <span v-on:click="toggleSort('thirty_day_price')" v-bind:class="{ focused: isSortProp('thirty_day_price') }">
+                        30 Day Value
+                        <i class="fa fa-sort-up" v-if="showSortIcon('thirty_day_price', 'asc')"></i>
+                        <i class="fa fa-sort-down" v-if="showSortIcon('thirty_day_price', 'desc')"></i>
+                    </span>
+                </div>
+                <div style="width: 250px">
+                    <span v-on:click="toggleSort('met_thirty_day_price')" v-bind:class="{ focused: isSortProp('met_thirty_day_price') }" title="Metenox 30 Day Value">
+                        Met. 30 Day Value
+                        <i class="fa fa-sort-up" v-if="showSortIcon('met_thirty_day_price', 'asc')"></i>
+                        <i class="fa fa-sort-down" v-if="showSortIcon('met_thirty_day_price', 'desc')"></i>
+                    </span>
+                </div>
+                <div style="width: 250px">
+                    <span class="static-column" title="Metenox 30 Day Value minus Metenox 30 Day Cost">
+                        Met. 30 day profitabilty
+                    </span>
+                </div>
+            </div>
+            <div v-for="(moon, index) in moons" class="structure-detail" v-bind:class="{ alt: (index % 2 == 0) }">
+                <div style="width:30px">
+                    <i v-show="moon.det_json == null" class="fa fa-chevron-right red detail-icon" title="No detail"></i>
+                    <i v-show="moon.det_json != null" class="fa detail-icon" title="Toggle Detail Display" v-bind:class="{ 'fa-chevron-right': !(moons_flag[index].val), 'fa-chevron-down': moons_flag[index].val }" style="cursor: pointer" v-on:click="toggleChild(index)"></i>
+                </div>
+                <div style="width:250px">
+                    <a :href="'http://evemaps.dotlan.net/search?q=' + moon.system_name" target="_blank">[[ moon.moon_name ]]</a>
+                </div>
+                <div style="width:200px">
+                    [[ moon.owner ]]
+                </div>                
+                 <div style="width:150px">
+                    [[ moon.rarity ? 'R' : '' ]][[ moon.rarity ]]
+                </div>               
+                <div style="width:250px">
+                    [[ addCommas(moon.thirty_day_volume) ]]
+                </div>
+                <div style="width:250px">
+                    [[ addCommas(moon.thirty_day_price) ]]
+                </div>
+                <div style="width:250px">
+                    [[ addCommas(moon.met_thirty_day_price) ]]
+                </div>
+                <div style="width:250px" v-bind:class="{ green: metProfitability(moon) > 0, red: metProfitability(moon) < 0 }">
+                    [[ addCommas(metProfitability(moon)) ]]
+                </div>
+                <div v-show="moons_flag[index].val" style="display: block; font-size:12px; margin-left: 5px; margin-top: 5px; border-top: 1px solid #ddd; padding-top: 5px">
+                    <div v-for="det in moon.det_json" style="width: 250px; display: inline-block; margin-left:5px; margin-top:5px; vertical-align: top;">
+                        <div style="display: inline;">
+                            <div style="font-weight: bold; text-transform: uppercase;">[[ det.type_name ]]</div>
+                            <div>
+                                [[  formatFloat(det.quantity * 100) ]]%
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</script>

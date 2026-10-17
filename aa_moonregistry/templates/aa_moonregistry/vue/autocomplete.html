@@ -1,0 +1,13 @@
+<script type="text/x-template" id="vue-autocomplete">
+    <div class="autocomplete">
+        <input type="text" v-on:focus="$event.target.select()" v-on:input="delayOnChange" v-model="search" :placeholder="placeholder" v-on:keyup.down="onArrowDown" v-on:keyup.up="onArrowUp" v-on:keyup.enter="onEnter" v-on:blur="onBlur" style="width:350px; padding: 5px" /><i v-show="enableClearOption && showClear" v-on:click="clearSelection" title="Clear Selection" class="fa fa-times" style="font-size: 1.2em; cursor: pointer; position: absolute; right: 5px; top: 7px"></i>
+        <ul id="autocomplete-results" v-show="isOpen" ref="auto" class="autocomplete-results">
+            <li class="loading" v-if="isLoading">
+                Loading results...
+            </li>
+            <li v-else v-for="(result, i) in results" :key="i" v-on:click="setResult(result)" class="autocomplete-result" ref="resultInput" :class="{ 'is-active': i === arrowCounter }">
+                [[ result.name ]]
+            </li>
+        </ul>
+    </div>
+</script>

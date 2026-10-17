@@ -1,0 +1,593 @@
+﻿body #vue-app {
+    color: #000;
+}
+
+
+input, select, textarea {
+    outline: none;
+}
+
+input, select, textarea {
+    border: 1px solid gray;
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #74a6bd;
+}
+
+/** legacy bootstrap styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+input[type='button'], button {
+    background-color: #74a6bd;
+    border: 0px;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+input[type='button'], button {
+    background-color: #74a6bd;
+    border: 1px solid transparent;
+    padding: 7px;
+}
+
+input[type='button']:focus, button:focus {
+    background-color: #afd6e8;
+    border: 1px solid gray;
+}
+
+.form-group input[type='text'], .form-group select, .form-group textarea {
+    background-color: #fff;
+}
+
+
+.form-group .datepicker input {
+    width: 55px !important;
+}
+
+.form-group button, .form-group input[type='button'] {
+    margin-top: 5px;
+}
+
+[v-cloak] {
+    display: none !important;
+}
+
+.autocomplete {
+    position: relative;
+    width: 350px;
+}
+
+.autocomplete-results {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #eeeeee;
+    max-height: 200px;
+    overflow: auto;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    width: 350px;
+    z-index: 999;
+}
+
+.autocomplete-result {
+    list-style: none;
+    text-align: left;
+    padding: 4px 2px;
+    cursor: pointer;
+}
+
+    .autocomplete-result.is-active,
+    .autocomplete-result:hover {
+        background-color: #74a6bd;
+        color: white;
+    }
+
+
+.timer-header {
+    margin-bottom:10px;
+}
+
+
+.timer-header .autocomplete input {
+    background-color: #f3f3f3;   
+}
+
+.timer-grid {
+    display: table;
+    margin-left: 15px;
+}
+
+.timer-sort {
+    margin-left: 0;
+    margin-bottom: 15px;
+    margin-left: 5px;
+}
+
+.timer-sort > div {
+	font-weight: bold;
+	text-transform: uppercase;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+.timer-sort > div > span {
+	background-color: #ddd;
+	cursor: pointer;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.timer-sort > div > span.focused {
+	background-color: #74a6bd;
+	border-radius: 5px;
+}
+
+.timer-detail {
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.timer-detail.alt {
+    background: #f3f3f3;
+}
+
+.timer-detail.red {
+    background-color: #fb7b76;
+}
+
+.timer-detail.blue {
+    background-color: #90b0e0;
+}
+
+
+.timer-detail.yellow {
+    background-color: #dbb52c;
+}
+
+.timer-detail > div {
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+.timer-detail > .detail-icon {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.timer-detail > .detail-icon a {
+    color: #2f3b44;
+}
+
+.timer-detail i.fa {
+    cursor: pointer; 
+    margin-right: 5px;
+}
+
+               
+
+.sub-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.spacer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.timeEntry-control {
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
+.form-group input, .form-group select {
+    padding: 5px;
+    height: 34px;
+}
+
+.form-group input:not([type='button'],[type='checkbox']), .form-group select {
+    min-width: 150px;
+}
+
+.form-group .form-check {
+    min-height: 2em;
+}
+
+.form-group .form-check-input {
+    min-width: 75px;
+}
+
+.form-group textarea {
+    padding: 5px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold
+}
+
+.timer-detail .red {
+    color: #9c0505;
+    font-weight: bold;
+}
+
+.timer-level-icon {
+    margin-left: 18px;
+    cursor: default;
+}
+
+.text-skirmish {
+    color: #0d85ba;
+}
+
+.text-tactical {
+    color: #463a99;
+}
+
+/** modal css */
+
+.modal-dialog {
+    width: 400px;
+}
+
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.modal-header {
+    padding: 5px;
+    background-color: #74a6bd;
+}
+
+.modal-title {
+    margin-left: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 10px;
+    max-height: 95vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.modal-content {
+    background-color: #ddd;
+}
+
+.modal-header .close {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    padding: 0;
+}
+
+button.close {
+    opacity: 1;
+    color: #2f3b44;
+    font-size: 1.5em;
+}
+
+a {
+    color: #23527c;
+}
+
+.modal-header {
+    cursor: grab;
+}
+
+@media only screen and (max-width: 768px) {
+
+    #vue-app {
+        overflow: scroll;
+    }
+
+    .timer-grid {
+        width: 1200px;
+        margin-left: 0;
+    }
+
+    .modal-dialog {
+        width: 350px;
+    }
+
+    textarea {
+        width: 300px !important;
+    }
+}
+
+.staging-search .autocomplete input {
+    background: #eee;
+}
+
+.structure-search {
+    width: max-content;
+    white-space: nowrap;
+}
+
+.structure-search > div
+{
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: top;
+}
+
+.structure-active-filters {
+    display: flex;
+    align-items: flex-start;
+    width: max-content;
+    margin-bottom: 10px;
+}
+
+.structure-filter-chip-group {
+    display: inline-block;
+}
+
+.structure-filter-and {
+    align-self: center;
+    margin: 0 12px 5px -10px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.structure-search .autocomplete input
+{
+    background-color: #f3f3f3;
+}
+
+.structure-search select
+{
+    background-color: #f3f3f3;
+    height: 34px;
+    padding: 5px;
+}
+
+.structure-yield-control input {
+    box-sizing: border-box;
+    width: 155px;
+    height: 34px;
+    padding: 5px;
+    background-color: #f3f3f3;
+}
+
+.structure-yield-control label,
+.structure-yield-error {
+    display: block;
+    margin-top: 3px;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.structure-yield-control label {
+
+}
+
+.structure-yield-error {
+    color: #9c0505;
+}
+
+.autocomplete-result
+{
+    background-color: #f3f3f3;
+}
+
+.structure-header {
+    margin-bottom:10px;
+}
+
+.structure-search .autocomplete
+{
+    background-color: ddd;
+}
+
+.registry-input {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.registry-input-group {
+    display:inline-block; 
+    margin-right: 5px;
+}
+
+.registry-input span {
+    display:inline-block;
+    padding: 7px;
+    background-color: #74a6bd;
+    border-radius: 5px;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.registry-input > .fa-close {
+    font-size: 1.5em;
+    position: relative;
+    float: right;
+    top: -10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.structure-grid {
+    display: table;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 1700px;
+}
+
+.structure-sort {
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+
+.structure-sort > div {
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.structure-sort > div > span {
+    background-color: #ddd;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.structure-sort > div > span.focused {
+    background-color: #74a6bd;
+}
+
+.structure-sort > div > span.static-column {
+    cursor: default;
+}
+
+.structure-detail {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+    .structure-detail.alt {
+        background: #f3f3f3;
+    }
+
+    .structure-detail.red {
+        background-color: #fb7b76;
+    }
+
+    .structure-detail.blue {
+        background-color: #90b0e0;
+    }
+
+
+    .structure-detail > div {
+        display: inline-block;
+        padding-right: 5px;
+        vertical-align: middle;
+    }
+
+.sub-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.spacer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.time-picker {
+    width: 60px !important;
+    min-width: 60px !important;
+}
+
+.form-group input, .form-group select {
+    padding: 5px;
+    height: 34px;
+}
+
+.form-group textarea {
+    padding: 5px;
+}
+
+.form-group label {
+    display: block;
+}
+
+.structure-detail .red {
+    color: #9c0505;
+    font-weight: bold;
+}
+
+.structure-detail .green {
+    color: #198754;
+    font-weight: bold;
+}
+
+.detail-icon {
+    font-size: 1.2em;
+}
+
+.fit-group {
+    background: #74a6bd;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+
+button.close {
+    opacity: 1;
+    color: #2f3b44;
+}
+
+a {
+    color: #23527c;
+}
+
+.modal-header {
+    cursor: grab;
+}
+
+.structure-edit i.fa {
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.structure-name-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.st-tooltip, .vuln-tooltip {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.tooltip.show {
+    z-index: 10000;
+}
+
+.tooltip-inner {
+    max-width: 400px !important; 
+}
+
+.scan-item {
+    float: left;
+    margin-left: 5px;
+    background-color: #74a6bd;
+    padding: 5px;
+    border-radius: 2px;
+    margin-bottom: 5px;
+    font-size: 12px
+}

@@ -1,0 +1,18 @@
+<script type="text/x-template" id="moonscan-component">
+    <div>
+        <div style="display:flex">
+            <div>
+                <textarea ref="scan_text" v-model="moonscan_text" v-on:input="onPaste" style="width:500px;height:600px; padding: 5px" placeholder="...Paste in Eve Moon Scan(s)...."></textarea>
+            </div>
+            <div>
+                <div v-for="detail in moonscan_result" class="scan-item">
+                    [[ detail.moonName ]] - [[ detail.moonProduct ]]
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+        <div style="margin-bottom: 15px">
+            <input type="button" value="Add Moon Scans" v-on:click="addMoonDetail" />
+        </div>
+    </div>
+</script>

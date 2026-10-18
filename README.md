@@ -18,7 +18,13 @@ Make sure you are in your venv. Then install it with pip in editable mode:
 pip install -e {path_to}/aa_moonregistry
 ```
 
-First add your app to the Django project by adding 'aa_moonregistry' to INSTALLED_APPS in `settings/local.py`.
+or via PyPi:
+
+```bash
+pip install aa_moonregistry
+```
+
+Add `aa_moonregistry` to `INSTALLED_APPS` in `settings/local.py`. If `eveuniverse` is not already there, add it too; the app depends on it.
 
 Next perform migrations to add models to the database:
 
@@ -66,3 +72,10 @@ There is only one access level that will give access to the app in menu
 
 ## Alliance Auth Tasks
 
+There are several registered tasks that should be run periodically.
+
+*aa_moonregistry.tasks.refresh_sovereignty* - Reloads current Eve Sovereignty. Schedule once a week or so.
+
+*aa_moonregistry.tasks.refresh_material_prices* - Refreshes pricing for calculations. Schedule once per day.
+
+*aa_moonregistry.tasks.refresh_metenox_data* - Refreshes Metenox metadata. Schedule once per month.

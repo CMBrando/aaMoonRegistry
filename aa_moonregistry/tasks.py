@@ -21,5 +21,5 @@ def refresh_metenox_data():
 
 
 @shared_task
-def refresh_severeignty():
+def refresh_sovereignty():
     utils.refresh_sovereignty()    

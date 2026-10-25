@@ -1,7 +1,7 @@
 """Models."""
 
 from django.db import models
-from eveuniverse.models import EveType
+from eve_sde.models import ItemType
 from django.utils import timezone
 
 
@@ -32,7 +32,8 @@ class SovereigntySystem(models.Model):
 
 class MarketOrder(models.Model):
     order_id = models.BigIntegerField(primary_key=True)
-    type     = models.ForeignKey(EveType, on_delete=models.CASCADE)
+    # Cached orders may exist before the SDE type import on an upgrade.
+    type     = models.ForeignKey(ItemType, on_delete=models.CASCADE, db_constraint=False)
     price = models.FloatField()
     volume_remain = models.IntegerField()
     volume_total = models.IntegerField()
@@ -51,7 +52,8 @@ class MarketOrder(models.Model):
 
 
 class MarketPrice(models.Model):
-    type = models.OneToOneField(EveType, on_delete=models.CASCADE, primary_key=True)
+    # Keep existing type IDs while the SDE tables are first populated.
+    type = models.OneToOneField(ItemType, on_delete=models.CASCADE, primary_key=True, db_constraint=False)
     price = models.DecimalField(max_digits=20, decimal_places=2)
 
 

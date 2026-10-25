@@ -10,9 +10,14 @@ This is a Moon Registry app for [Alliance Auth](https://gitlab.com/allianceauth/
 
 ## Installation
 
-Once you have cloned the repo or copied all files into place.
+Before installing Moon Registry, install and configure `django-eveonline-sde`
+(`eve_sde`) in Alliance Auth. Complete its migrations and run `esde_load_sde`
+successfully. The SDE load must include regions, constellations, solar systems,
+item types, type materials, planets, and moons. Follow the SDE package's setup
+instructions, including its `modeltranslation` requirement.
 
-Make sure you are in your venv. Then install it with pip in editable mode:
+In your Alliance Auth virtual environment, install Moon Registry in editable
+mode from a local checkout:
 
 ```bash
 pip install -e {path_to}/aa_moonregistry
@@ -24,18 +29,13 @@ or via PyPi:
 pip install aa_moonregistry
 ```
 
-Add `aa_moonregistry` to `INSTALLED_APPS` in `settings/local.py`. If `eveuniverse` is not already there, add it too; the app depends on it.
+Add `aa_moonregistry` to `INSTALLED_APPS` in `settings/local.py`.
 
-Next perform migrations to add models to the database:
+Apply Moon Registry's migrations. On upgrades, existing moon scans and cached
+prices keep their EVE type IDs.
 
 ```bash
 python manage.py migrate
-```
-
-Next load all the planets and moons from via eve universe, if not loaded already. This will take a while!!
-
-```bash
-python manage.py aa_moonregistry_load_planets_moons
 ```
 
 Load initial Eve sovereignty

@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.db.models import Avg, F, Window
 from django.db.models.functions import RowNumber
 from esi.openapi_clients import ESIClientProvider
-from eveuniverse.models import EveType
+from eve_sde.models import ItemType
 from aa_moonregistry.models import MarketOrder, MarketPrice
 
 from aa_moonregistry import apps
@@ -42,8 +42,8 @@ class Command(BaseCommand):
 
 
         save_type_ids = list(
-            EveType.objects
-            .filter(eve_group__eve_category_id=EVE_CATEGORY_MATERIAL)
+            ItemType.objects
+            .filter(group__category_id=EVE_CATEGORY_MATERIAL)
             .values_list("id", flat=True)
         )
 

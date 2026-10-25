@@ -10,7 +10,6 @@ from django.db.models import Exists, OuterRef
 
 from aa_moonregistry.models import MetenoxDrillAttribute
 
-from eveuniverse.models import EveSolarSystem, EvePlanet
 
 STANDUP_METENOX_DRILL_TYPE_ID = 82941
 FUEL_NEED_ATTR = 2109

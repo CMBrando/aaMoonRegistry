@@ -10,7 +10,9 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('eveuniverse', '0012_alter_evebloodline_eve_ship_type'),
+        # This migration is replaced by 0001_sde_squashed. Keep its node
+        # loadable when eveuniverse is no longer installed.
+        ('eve_sde', '0036_remove_star_name'),
     ]
 
     operations = [

@@ -11,7 +11,7 @@ from django.db.models import Q, Subquery
 from django.core.exceptions import SuspiciousOperation
 from django.http import JsonResponse
 
-from eveuniverse.models import EveConstellation, EveRegion, EveSolarSystem, EveType
+from eve_sde.models import Constellation, ItemType, Region, SolarSystem
 from allianceauth.eveonline.models import EveAllianceInfo, EveCorporationInfo
 
 from aa_moonregistry import app_settings
@@ -44,9 +44,9 @@ def index(request):
 @permission_required("aa_moonregistry.basic_access")
 def search_universe(request):
     query = request.GET.get('query', '')
-    items = list(EveSolarSystem.objects.filter(name__istartswith=query).values())
-    items2 = list(EveConstellation.objects.filter(name__istartswith=query).values())
-    items3 = list(EveRegion.objects.filter(name__istartswith=query).values())
+    items = list(SolarSystem.objects.filter(name__istartswith=query).values("id", "name"))
+    items2 = list(Constellation.objects.filter(name__istartswith=query).values("id", "name"))
+    items3 = list(Region.objects.filter(name__istartswith=query).values("id", "name"))
 
     merged_list = list(map(lambda x: {**x, 'name': f"{x['name']} (sys)"}, items)) + \
               list(map(lambda x: {**x, 'name': f"{x['name']} (const)"}, items2)) + \
@@ -60,7 +60,7 @@ def search_universe(request):
 def search_moon_ore(request):
     query = request.GET.get("query", "").strip()
     items = list(
-        EveType.objects.filter(
+        ItemType.objects.filter(
             id__in=MOON_ORE_TYPE_IDS,
             name__icontains=query,
         ).order_by("name").values("id", "name")

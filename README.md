@@ -44,12 +44,6 @@ Load initial Eve sovereignty
 python manage.py aa_moonregistry_load_sovereignty
 ```
 
-Load Metenox-specific fuel data
-
-```bash
-python manage.py aa_moonregistry_load_metenox_data
-```
-
 Load initial JITA IV material pricing. Calculates average of top 5 JBV per type 
 
 ```bash
@@ -77,5 +71,3 @@ There are several registered tasks that should be run periodically.
 *aa_moonregistry.tasks.refresh_sovereignty* - Reloads current Eve Sovereignty. Schedule once a week or so.
 
 *aa_moonregistry.tasks.refresh_material_prices* - Refreshes pricing for calculations. Schedule once per day.
-
-*aa_moonregistry.tasks.refresh_metenox_data* - Refreshes Metenox metadata. Schedule once per month.

@@ -16,10 +16,5 @@ def refresh_material_prices():
     call_command("aa_moonregistry_load_jita_materials_prices")
 
 @shared_task
-def refresh_metenox_data():
-    call_command("aa_moonregistry_load_metenox_data")    
-
-
-@shared_task
 def refresh_sovereignty():
     utils.refresh_sovereignty()    

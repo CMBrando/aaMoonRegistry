@@ -70,15 +70,6 @@ class MoonDetail(models.Model):
         ]       
 
 
-class MetenoxDrillAttribute(models.Model):
-    name = models.CharField(max_length=25, primary_key=True)
-    value = models.DecimalField(max_digits=20, decimal_places=5)
-
-    class Meta:
-        default_permissions = ()     
-
-   
-
 class MoonRegistryView(models.Model):
     region_id = models.IntegerField(blank=False, null=False)
     constellation_id = models.IntegerField(blank=False, null=False)

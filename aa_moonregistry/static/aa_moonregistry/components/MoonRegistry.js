@@ -187,6 +187,15 @@ export default {
         closeModal: function() {
             this.show_modal = false
         },
+        scanAdded: function(allSaved) {
+            if (allSaved) this.show_modal = false;
+            this.requestId++;
+            this.is_loading = false;
+            this.moons = [];
+            this.moons_flag = [];
+            this.next_cursor = '';
+            this.loadData();
+        },
         
         formatDate: function (date) {
             if (date != null)

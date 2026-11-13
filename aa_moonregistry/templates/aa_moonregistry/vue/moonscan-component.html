@@ -1,18 +1,19 @@
 <script type="text/x-template" id="moonscan-component">
-    <div>
-        <div style="display:flex">
-            <div>
-                <textarea ref="scan_text" v-model="moonscan_text" v-on:input="onPaste" style="width:500px;height:600px; padding: 5px" placeholder="...Paste in Eve Moon Scan(s)...."></textarea>
-            </div>
-            <div>
-                <div v-for="detail in moonscan_result" class="scan-item">
-                    [[ detail.moonName ]] - [[ detail.moonProduct ]]
-                </div>
-                <div style="clear:both"></div>
+    <div class="moon-scan-layout" v-bind:aria-busy="is_saving">
+        <div class="moon-scan-entry">
+            <textarea ref="scan_text" v-model="moonscan_text" v-on:input="onPaste" v-bind:disabled="is_saving" class="moon-scan-textarea" aria-label="Moon scans" placeholder="Paste EVE moon scans here..."></textarea>
+            <input type="button" value="Add Moon Scans" v-bind:disabled="is_saving" v-on:click="addMoonDetail" />
+        </div>
+        <div class="moon-scan-preview" aria-label="Parsed moon scans">
+            <div v-for="detail in moonscan_result" class="scan-item">
+                [[ detail.moonName ]] - [[ detail.moonProduct ]]
             </div>
         </div>
-        <div style="margin-bottom: 15px">
-            <input type="button" value="Add Moon Scans" v-on:click="addMoonDetail" />
+        <div v-if="is_saving" class="moon-scan-saving-overlay" role="status" aria-live="polite">
+            <div class="moon-scan-saving-message">
+                <span class="moon-scan-spinner" aria-hidden="true"></span>
+                Saving moon scans...
+            </div>
         </div>
     </div>
 </script>

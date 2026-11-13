@@ -491,6 +491,7 @@ a {
     .structure-detail > div {
         display: inline-block;
         padding-right: 5px;
+        padding-left: 5px;
         vertical-align: middle;
     }
 
@@ -583,11 +584,95 @@ a {
 }
 
 .scan-item {
-    float: left;
-    margin-left: 5px;
     background-color: #74a6bd;
-    padding: 5px;
+    padding: 3px 5px;
     border-radius: 2px;
-    margin-bottom: 5px;
-    font-size: 12px
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.moon-scan-dialog {
+    width: min(900px, calc(100vw - 32px));
+    max-width: none;
+}
+
+.moon-scan-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 12px;
+}
+
+.moon-scan-entry {
+    min-width: 0;
+}
+
+.moon-scan-textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: min(320px, 45vh);
+    padding: 5px;
+    margin-bottom: 8px;
+    resize: vertical;
+}
+
+.moon-scan-preview {
+    min-width: 0;
+    height: min(320px, 45vh);
+    overflow-y: auto;
+}
+
+.moon-scan-saving-overlay {
+    position: fixed;
+    z-index: 10000;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .55);
+}
+
+.moon-scan-saving-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: 5px;
+    background: #ddd;
+    color: #000;
+    font-weight: bold;
+}
+
+.moon-scan-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #afd6e8;
+    border-top-color: #23527c;
+    border-radius: 50%;
+    animation: moon-scan-spin .8s linear infinite;
+}
+
+@keyframes moon-scan-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .moon-scan-spinner { animation: none; }
+}
+
+@media only screen and (max-width: 768px) {
+    .moon-scan-textarea {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .moon-scan-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .moon-scan-preview {
+        height: auto;
+        max-height: 180px;
+    }
 }

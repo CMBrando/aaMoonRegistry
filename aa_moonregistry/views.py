@@ -271,12 +271,12 @@ def save_moon_detail(request):
             type_id = int(item["oreTypeId"])
             qty = Decimal(str(item["quantity"]))
             keyed[(moon_id, type_id)] = qty
-        except (KeyError, ValueError, InvalidOperation) as exc:
+        except (KeyError, TypeError, ValueError, InvalidOperation) as exc:
             errors.append({"index": i, "error": str(exc), "item": item})
 
     if not keyed:
         return JsonResponse({
-            "processed": 0, "deleted": 0, "created": 0, "errors": errors
+            "success": False, "processed": 0, "errors": errors
         }, status=400 if errors else 200)
 
     moon_ids = {m for (m, _t) in keyed.keys()}

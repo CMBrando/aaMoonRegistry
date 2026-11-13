@@ -11,7 +11,7 @@ This is a Moon Registry app for [Alliance Auth](https://gitlab.com/allianceauth/
 ## Installation
 
 Before installing Moon Registry, install and configure `django-eveonline-sde`
-(`eve_sde`) in Alliance Auth. Complete its migrations and run `esde_load_sde`
+1.x (`eve_sde`) in Alliance Auth. Complete its migrations and run `esde_load_sde`
 successfully. The SDE load must include regions, constellations, solar systems,
 item types, type materials, planets, and moons. Follow the SDE package's setup
 instructions, including its `modeltranslation` requirement.

@@ -3,4 +3,4 @@
 # pylint: disable = invalid-name
 default_app_config = "aa_moonregistry.apps.DefaultConfig"
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
